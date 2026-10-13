@@ -6,8 +6,18 @@ export const connectDB = async () => {
     
     if (!mongodbUri) {
         console.error("❌ MONGODB_URI environment variable is required");
-        console.error("📝 Set MONGODB_URI in your environment or .env file");
-        console.error("🔗 Example: mongodb+srv://user:password@cluster.mongodb.net/nestro");
+        
+        // Production environment (like Render)
+        if (process.env.NODE_ENV === 'production') {
+            console.error("🔧 RENDER USERS: Configure MONGODB_URI in your Render service Environment settings");
+            console.error("   → Dashboard → Your Service → Environment → Add Environment Variable");
+            console.error("   → Key: MONGODB_URI");  
+            console.error("   → Value: mongodb+srv://username:password@cluster.mongodb.net/nestro");
+        } else {
+            console.error("📝 LOCAL DEV: Set MONGODB_URI in your .env file");
+            console.error("🔗 Example: mongodb+srv://user:password@cluster.mongodb.net/nestro");
+        }
+        
         process.exit(1);
     }
 
