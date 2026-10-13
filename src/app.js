@@ -161,6 +161,10 @@ server.use((error, req, res, next) => {
 // Connect to database and start server
 const startServer = async () => {
     try {
+        console.log("🔄 Starting Nestro Backend Server...");
+        console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+        
+        // Connect to database first
         await connectDB();
         
         const PORT = process.env.PORT || 5000;
@@ -168,9 +172,11 @@ const startServer = async () => {
             console.log(`🚀 Server is running on port ${PORT}`);
             console.log(`📊 Health check: http://localhost:${PORT}/health`);
             console.log(`🛡️  Security features enabled: Helmet, CORS, Rate Limiting`);
+            console.log("✅ Nestro Backend Server started successfully!");
         });
     } catch (error) {
-        console.error('❌ Failed to start server:', error);
+        console.error('❌ Failed to start server:', error.message);
+        console.error('🔍 Check your environment variables and database connection');
         process.exit(1);
     }
 };
